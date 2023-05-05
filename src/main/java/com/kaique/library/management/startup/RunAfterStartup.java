@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,6 +19,7 @@ public class RunAfterStartup {
 
     private final UserRepository userRepository;
     private final EnvironmentVariableProvider environmentVariableProvider;
+    private final PasswordEncoder passwordEncoder;
 
     @EventListener(ApplicationReadyEvent.class)
     public void createAdminUserFromEnvironmentVariables() {
@@ -28,7 +30,7 @@ public class RunAfterStartup {
                 .email(environmentVariableProvider.getAdminEmail())
                 .role(new Role(1L))
                 .name(environmentVariableProvider.getAdminName())
-                .password(environmentVariableProvider.getAdminPassword())
+                .password(passwordEncoder.encode(environmentVariableProvider.getAdminPassword()))
                 .build();
 
         userRepository.saveAndFlush(adminUser);

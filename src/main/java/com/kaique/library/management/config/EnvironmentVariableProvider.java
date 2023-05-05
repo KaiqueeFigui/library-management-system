@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
 @Getter
 public class EnvironmentVariableProvider {
 
-    @Value("${default.admin.name}")
+    @Value("${app.admin.name}")
     private String adminName;
 
-    @Value("${default.admin.email}")
+    @Value("${app.admin.email}")
     private String adminEmail;
 
-    @Value("${default.admin.password}")
+    @Value("${app.admin.password}")
     private String adminPassword;
 
-    @Value("${spring.profiles}")
+    @Value("${spring.config.activate.on-profile}")
     private String currentEnvironment;
 
 }
