@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  library-management-db:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: 'development-password'
+      POSTGRES_USER: 'library-management-user'
+      POSTGRES_DB: 'library-management'
